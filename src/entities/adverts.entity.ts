@@ -37,6 +37,9 @@ class Advert {
 
   @Column({ length: 10 })
   fuel: string;
+
+  @Column({ type: 'boolean', default: 'true' })
+  is_active: boolean;
 }
 
 export default Advert;
