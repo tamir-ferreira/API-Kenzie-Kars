@@ -1,10 +1,10 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 const advertSchema = z.object({
   id: z.number(),
   title: z.string().max(150),
   description: z.string().optional().nullish(),
-  price: z.number(),
+  price: z.number().or(z.string()),
   createdAt: z.string(),
   updatedAt: z.string(),
   brand: z.string().max(40),
