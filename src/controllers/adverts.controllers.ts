@@ -23,7 +23,7 @@ const updateAdvertController = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const updatedAdvert = await updateAdvertService(body, id);
 
-  return res.status(200).json({ updatedAdvert });
+  return res.status(200).json(updatedAdvert);
 };
 
 const deleteAdvertController = async (req: Request, res: Response) => {
