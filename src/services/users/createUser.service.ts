@@ -9,7 +9,17 @@ const createUserService = async (
 ): Promise<UserResponse> => {
   const userRepository: Repository<User> = AppDataSource.getRepository(User);
 
-  const user: User = userRepository.create(userData);
+  const userColor: string =
+    "#" +
+    Math.floor(Math.random() * 0x1000000)
+      .toString(16)
+      .padStart(6, "0");
+
+  const user: User = userRepository.create({
+    ...userData,
+    color: userColor,
+  });
+
   await userRepository.save(user);
 
   const userReturn: UserResponse = userSchemaResponse.parse(user);
