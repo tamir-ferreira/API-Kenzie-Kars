@@ -1,6 +1,6 @@
-import { AppDataSource } from '../../data-source';
-import { Repository } from 'typeorm';
-import Advert from '../../entities/adverts.entity';
+import { AppDataSource } from "../../data-source";
+import { Repository } from "typeorm";
+import { Advert } from "../../entities/adverts.entity";
 
 const deleteAdvertService = async (id: number): Promise<void> => {
   const advertRepository: Repository<Advert> =

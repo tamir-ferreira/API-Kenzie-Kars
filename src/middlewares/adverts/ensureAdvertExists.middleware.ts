@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
-import { AppDataSource } from '../../data-source';
-import Advert from '../../entities/adverts.entity';
+import { Request, Response, NextFunction } from "express";
+import { AppDataSource } from "../../data-source";
+import { Advert } from "../../entities/adverts.entity";
 
 const ensureAdvertExists = async (
   req: Request,
@@ -19,7 +19,7 @@ const ensureAdvertExists = async (
 
   if (!advert) {
     return res.status(404).json({
-      message: 'Advert not found',
+      message: "Advert not found",
     });
   }
 
