@@ -4,26 +4,28 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-} from 'typeorm';
+  ManyToOne,
+} from "typeorm";
+import { User } from "./users.entity";
 
-@Entity('adverts')
-class Advert {
-  @PrimaryGeneratedColumn('increment')
+@Entity("adverts")
+export class Advert {
+  @PrimaryGeneratedColumn("increment")
   id: number;
 
   @Column({ length: 150 })
   title: string;
 
-  @Column({ type: 'text', nullable: true })
+  @Column({ type: "text", nullable: true })
   description: string | null | undefined;
 
-  @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })
+  @Column({ type: "decimal", precision: 12, scale: 2, default: 0 })
   price: string | number;
 
-  @CreateDateColumn({ type: 'date' })
+  @CreateDateColumn({ type: "date" })
   createdAt: string;
 
-  @UpdateDateColumn({ type: 'date' })
+  @UpdateDateColumn({ type: "date" })
   updatedAt: string;
 
   @Column({ length: 40 })
@@ -32,14 +34,15 @@ class Advert {
   @Column({ length: 40 })
   model: string;
 
-  @Column({ type: 'integer' })
+  @Column({ type: "integer" })
   year: number;
 
   @Column({ length: 10 })
   fuel: string;
 
-  @Column({ type: 'boolean', default: 'true' })
+  @Column({ type: "boolean", default: "true" })
   is_active: boolean;
-}
 
-export default Advert;
+  @ManyToOne(() => User)
+  user: User;
+}

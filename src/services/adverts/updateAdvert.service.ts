@@ -1,8 +1,8 @@
-import { AppDataSource } from '../../data-source';
-import { Repository } from 'typeorm';
-import { tAdvert, tAdvertUpdate } from '../../interfaces/adverts.interfaces';
-import { advertSchema } from '../../schemas/adverts.schemas';
-import Advert from '../../entities/adverts.entity';
+import { AppDataSource } from "../../data-source";
+import { Repository } from "typeorm";
+import { tAdvert, tAdvertUpdate } from "../../interfaces/adverts.interfaces";
+import { advertSchema } from "../../schemas/adverts.schemas";
+import { Advert } from "../../entities/adverts.entity";
 
 const updateAdvertService = async (
   data: tAdvertUpdate,
