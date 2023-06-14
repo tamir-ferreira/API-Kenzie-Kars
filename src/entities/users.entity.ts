@@ -8,8 +8,11 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  OneToOne,
+  JoinColumn,
 } from "typeorm";
 import { Advert } from "./adverts.entity";
+import { Address } from "./addresses.entity";
 
 @Entity("users")
 export class User {
@@ -45,6 +48,10 @@ export class User {
 
   @OneToMany(() => Advert, (advert) => advert.user)
   adverts: Advert[];
+
+  @OneToOne(() => Address)
+  @JoinColumn()
+  address: Address | null | undefined;
 
   @BeforeInsert()
   @BeforeUpdate()
