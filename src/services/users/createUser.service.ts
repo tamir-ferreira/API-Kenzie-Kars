@@ -3,11 +3,27 @@ import { User } from "../../entities/users.entity";
 import { UserRequest, UserResponse } from "../../interfaces/users.interfaces";
 import { AppDataSource } from "../../data-source";
 import { userSchemaResponse } from "../../schemas/users.schemas";
+import { Address } from "../../entities/addresses.entity";
+import { returnAddressSchema } from "../../schemas/addresses.schema";
 
 const createUserService = async (
   userData: UserRequest
 ): Promise<UserResponse> => {
   const userRepository: Repository<User> = AppDataSource.getRepository(User);
+  const addressRepository: Repository<Address> =
+    AppDataSource.getRepository(Address);
+
+  const dataAddress = userData.address;
+
+  const createAddress = addressRepository.create(dataAddress);
+
+  await addressRepository.save(createAddress);
+
+  const newAddress = returnAddressSchema.parse(createAddress);
+
+  const findAddress: Address | null = await addressRepository.findOneBy({
+    id: newAddress.id,
+  });
 
   const userColor: string =
     "#" +
@@ -17,6 +33,7 @@ const createUserService = async (
 
   const user: User = userRepository.create({
     ...userData,
+    address: findAddress!,
     color: userColor,
   });
 
