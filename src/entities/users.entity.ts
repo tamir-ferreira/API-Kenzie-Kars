@@ -28,6 +28,15 @@ export class User {
   @Column({ type: "varchar" })
   phone: string;
 
+  @Column({ type: "varchar", length: 11 })
+  cpf: string;
+
+  @Column({ type: "date" })
+  birthdate: string;
+
+  @Column({ type: "varchar", nullable: true })
+  description: string | null | undefined;
+
   @Column({ length: 120 })
   password: string;
 
