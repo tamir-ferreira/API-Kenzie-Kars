@@ -13,7 +13,7 @@ export class Advert {
   @PrimaryGeneratedColumn("increment")
   id: number;
 
-  @Column({ length: 150 })
+  @Column({ type: "varchar", length: 150 })
   title: string;
 
   @Column({ type: "text", nullable: true })
@@ -28,16 +28,16 @@ export class Advert {
   @UpdateDateColumn({ type: "date" })
   updatedAt: string;
 
-  @Column({ length: 40 })
+  @Column({ type: "varchar", length: 40 })
   brand: string;
 
-  @Column({ length: 40 })
+  @Column({ type: "varchar", length: 40 })
   model: string;
 
   @Column({ type: "integer" })
   year: number;
 
-  @Column({ length: 10 })
+  @Column({ type: "varchar", length: 10 })
   fuel: string;
 
   @Column({ type: "boolean", default: "true" })

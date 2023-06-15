@@ -6,6 +6,9 @@ export const userSchema = z.object({
   name: z.string(),
   email: z.string().email(),
   phone: z.string(),
+  cpf: z.string().length(11),
+  birthdate: z.string(),
+  description: z.string().nullish().optional(),
   password: z.string(),
   admin: z.boolean().optional().default(false),
   seller: z.boolean().optional().default(false),
@@ -25,3 +28,5 @@ export const userSchemaRequest = userSchema.omit({
 export const userSchemaResponse = userSchema.omit({
   password: true,
 });
+
+export const multipleUserSchemaResponse = z.array(userSchemaResponse);
