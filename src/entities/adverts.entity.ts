@@ -13,21 +13,6 @@ export class Advert {
   @PrimaryGeneratedColumn("increment")
   id: number;
 
-  @Column({ type: "varchar", length: 150 })
-  title: string;
-
-  @Column({ type: "text", nullable: true })
-  description: string | null | undefined;
-
-  @Column({ type: "decimal", precision: 12, scale: 2, default: 0 })
-  price: string | number;
-
-  @CreateDateColumn({ type: "date" })
-  createdAt: string;
-
-  @UpdateDateColumn({ type: "date" })
-  updatedAt: string;
-
   @Column({ type: "varchar", length: 40 })
   brand: string;
 
@@ -39,6 +24,30 @@ export class Advert {
 
   @Column({ type: "varchar", length: 10 })
   fuel: string;
+
+  @Column({ type: "integer" })
+  mileage: number;
+
+  @Column({ type: "varchar", length: 20 })
+  color: string;
+
+  @Column({ type: "decimal", precision: 12, scale: 2, default: 0 })
+  fipe_price: string | number;
+
+  @Column({ type: "decimal", precision: 12, scale: 2, default: 0 })
+  price: string | number;
+
+  @Column({ type: "text" })
+  description: string;
+
+  @Column({ type: "text" })
+  cover_image: string;
+
+  @CreateDateColumn({ type: "date" })
+  createdAt: string;
+
+  @UpdateDateColumn({ type: "date" })
+  updatedAt: string;
 
   @Column({ type: "boolean", default: "true" })
   is_active: boolean;
