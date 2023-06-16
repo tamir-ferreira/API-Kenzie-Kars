@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { userSchemaResponse } from "./users.schemas";
 
 const advertSchema = z.object({
   id: z.number(),
@@ -15,16 +16,23 @@ const advertSchema = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
   is_active: z.boolean().optional().default(true),
+  user: userSchemaResponse.nullish(),
 });
 
 const advertSchemaRequest = advertSchema.omit({
   id: true,
   createdAt: true,
   updatedAt: true,
+  user: true,
 });
 
-const advertSchemaMultiple = z.array(advertSchema);
+const advertSchemaMultiple = advertSchema.array();
 
 const advertSchemaUpdate = advertSchemaRequest.partial();
 
-export { advertSchema, advertSchemaRequest, advertSchemaMultiple, advertSchemaUpdate };
+export {
+  advertSchema,
+  advertSchemaRequest,
+  advertSchemaMultiple,
+  advertSchemaUpdate,
+};

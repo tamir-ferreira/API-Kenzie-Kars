@@ -8,7 +8,11 @@ const readAdvertsService = async (): Promise<tAdvertMultiple> => {
   const advertRepository: Repository<Advert> =
     AppDataSource.getRepository(Advert);
 
-  const adverts: Advert[] = await advertRepository.find();
+  const adverts: Array<Advert> = await advertRepository.find({
+    relations: {
+      user: true,
+    },
+  });
 
   return advertSchemaMultiple.parse(adverts);
 };

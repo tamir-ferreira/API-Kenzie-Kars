@@ -15,7 +15,7 @@ const createUserService = async (
 
   const dataAddress = userData.address;
 
-  const createAddress = addressRepository.create(dataAddress);
+  const createAddress = addressRepository.create(dataAddress!);
 
   await addressRepository.save(createAddress);
 

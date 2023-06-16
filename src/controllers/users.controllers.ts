@@ -4,6 +4,7 @@ import createUserService from "../services/users/createUser.service";
 import { LoginRequest } from "../interfaces/users.interfaces";
 import loginService from "../services/users/login.service";
 import listUsersService from "../services/users/listUsers.service";
+import { listUserByIdService } from "../services/users/listUserById.service";
 
 export const createUserController = async (
   request: Request,
@@ -22,6 +23,15 @@ export const listUsersController = async (
   const users = await listUsersService();
 
   return response.status(200).json(users);
+};
+export const listUserByIdController = async (
+  request: Request,
+  response: Response
+): Promise<Response> => {
+  const idUser: number = parseInt(request.params.id);
+  const user = await listUserByIdService(idUser);
+
+  return response.status(200).json(user);
 };
 
 export const loginController = async (
