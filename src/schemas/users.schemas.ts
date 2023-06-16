@@ -15,7 +15,10 @@ export const userSchema = z.object({
   color: z.string(),
   createdAt: z.string().or(z.date()),
   updatedAt: z.string().or(z.date()),
-  address: requestAddressSchema,
+  address: requestAddressSchema.nullish(),
+});
+export const userIdSchema = z.object({
+  id: z.number(),
 });
 
 export const userSchemaRequest = userSchema.omit({

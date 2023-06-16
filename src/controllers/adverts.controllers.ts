@@ -4,10 +4,15 @@ import createAdvertService from "../services/adverts/createAdvert.service";
 import readAdvertsService from "../services/adverts/readAdverts.service";
 import updateAdvertService from "../services/adverts/updateAdvert.service";
 import deleteAdvertService from "../services/adverts/deleteAdvert.service";
+import { log } from "console";
 
 const createAdvertController = async (req: Request, res: Response) => {
   const body: tAdvertRequest = req.body;
-  const newAdvert = await createAdvertService(body);
+  const userId = res.locals.userId;
+
+  console.log(userId);
+
+  const newAdvert = await createAdvertService(body, userId);
 
   return res.status(201).json(newAdvert);
 };

@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  JoinColumn,
 } from "typeorm";
 import { User } from "./users.entity";
 
@@ -52,6 +53,9 @@ export class Advert {
   @Column({ type: "boolean", default: "true" })
   is_active: boolean;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, (user) => user.address)
   user: User;
+
+  @ManyToOne(() => User)
+  userAdvert: User;
 }
