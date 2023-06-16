@@ -28,7 +28,7 @@ export class User {
   @Column({ type: "varchar" })
   phone: string;
 
-  @Column({ type: "varchar", length: 11 })
+  @Column({ type: "varchar", length: 14 })
   cpf: string;
 
   @Column({ type: "date" })
