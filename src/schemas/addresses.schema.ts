@@ -12,3 +12,5 @@ export const requestAddressSchema = z.object({
 export const returnAddressSchema = requestAddressSchema.extend({
   id: z.number(),
 });
+
+export const updateAddressSchema = returnAddressSchema.partial();

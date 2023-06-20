@@ -56,20 +56,25 @@ export class User {
   @UpdateDateColumn({ type: "date" })
   updatedAt: string;
 
-  @OneToMany(() => Advert, (advert) => advert.user)
+  @Column({ type: "varchar", nullable: true })
+  reset_token: string | null | undefined;
+
+  @OneToMany(() => Advert, (advert) => advert.user, { onDelete: "CASCADE" })
   adverts: Advert[];
 
-  @OneToOne(() => Address)
+  @OneToOne(() => Address, { onDelete: "CASCADE" })
   @JoinColumn()
   address: Address | null | undefined;
 
   @BeforeInsert()
   @BeforeUpdate()
-  hashPasssword() {
-    const isEncripted = getRounds(this.password);
+  hashPassword() {
+    if (this.password) {
+      const isEncripted = getRounds(this.password);
 
-    if (!isEncripted) {
-      this.password = hashSync(this.password, 10);
+      if (!isEncripted) {
+        this.password = hashSync(this.password, 10);
+      }
     }
   }
 }

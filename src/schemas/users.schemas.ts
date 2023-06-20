@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { requestAddressSchema } from "./addresses.schema";
+import { requestAddressSchema, updateAddressSchema } from "./addresses.schema";
 
 export const userSchema = z.object({
   id: z.number(),
@@ -13,10 +13,12 @@ export const userSchema = z.object({
   admin: z.boolean().optional().default(false),
   seller: z.boolean().optional().default(false),
   color: z.string(),
+  reset_token: z.string().nullish().optional(),
   createdAt: z.string().or(z.date()),
   updatedAt: z.string().or(z.date()),
   address: requestAddressSchema.nullish(),
 });
+
 export const userIdSchema = z.object({
   id: z.number(),
 });
@@ -24,6 +26,7 @@ export const userIdSchema = z.object({
 export const userSchemaRequest = userSchema.omit({
   id: true,
   color: true,
+  reset_token: true,
   createdAt: true,
   updatedAt: true,
 });
@@ -33,3 +36,7 @@ export const userSchemaResponse = userSchema.omit({
 });
 
 export const multipleUserSchemaResponse = z.array(userSchemaResponse);
+
+export const userSchemaUpdate = userSchemaRequest
+  .extend({ address: updateAddressSchema.nullish() })
+  .partial();

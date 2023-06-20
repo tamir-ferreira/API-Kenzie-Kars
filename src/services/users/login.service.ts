@@ -26,14 +26,10 @@ const loginService = async (loginData: LoginRequest): Promise<string> => {
     throw new AppError("Wrong email or password", 401);
   }
 
-  const token = jwt.sign(
-    { admin: user.admin },
-    String(process.env.SECRET_KEY),
-    {
-      expiresIn: "24h",
-      subject: String(user.id),
-    }
-  );
+  const token = jwt.sign({ id: user.id }, String(process.env.SECRET_KEY), {
+    expiresIn: "24h",
+    subject: String(user.id),
+  });
 
   return token;
 };
