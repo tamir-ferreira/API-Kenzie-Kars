@@ -6,6 +6,7 @@ import { AppError } from "../../errors";
 
 const resetPasswordService = async (password: string, resetToken: string) => {
   const userRepository: Repository<User> = AppDataSource.getRepository(User);
+  console.log(password);
 
   const user = await userRepository.findOneBy({
     reset_token: resetToken,
