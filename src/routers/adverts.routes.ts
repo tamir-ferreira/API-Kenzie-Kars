@@ -15,6 +15,8 @@ import { verifyTokenMiddleware } from "../middlewares/ensureTokenIsValid.middlew
 
 const advertsRoutes = Router();
 
+advertsRoutes.use(verifyTokenMiddleware);
+
 advertsRoutes.post(
   "",
   verifyTokenMiddleware,

@@ -1,10 +1,10 @@
-import { z } from 'zod';
-import { DeepPartial } from 'typeorm';
+import { z } from "zod";
+import { DeepPartial } from "typeorm";
 import {
   advertSchema,
   advertSchemaMultiple,
   advertSchemaRequest,
-} from '../schemas/adverts.schemas';
+} from "../schemas/adverts.schemas";
 
 type tAdvert = z.infer<typeof advertSchema>;
 type tAdvertRequest = z.infer<typeof advertSchemaRequest>;
