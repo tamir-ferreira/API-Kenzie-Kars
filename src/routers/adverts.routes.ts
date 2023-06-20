@@ -15,8 +15,6 @@ import { verifyTokenMiddleware } from "../middlewares/ensureTokenIsValid.middlew
 
 const advertsRoutes = Router();
 
-advertsRoutes.use(verifyTokenMiddleware);
-
 advertsRoutes.post(
   "",
   verifyTokenMiddleware,
@@ -25,6 +23,8 @@ advertsRoutes.post(
 );
 
 advertsRoutes.get("", readAdvertsController);
+
+advertsRoutes.use(verifyTokenMiddleware);
 
 advertsRoutes.patch(
   "/:id",
