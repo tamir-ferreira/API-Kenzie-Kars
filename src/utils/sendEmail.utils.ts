@@ -15,7 +15,7 @@ class EmailService {
 
     await transporter
       .sendMail({
-        from: "cardealershipt14g10@gmail.com.br",
+        from: "cardealershipt14g10@gmail.com",
         to,
         subject,
         html: text,
@@ -29,11 +29,7 @@ class EmailService {
       });
   }
 
-  resetPasswordTemplate(
-    userName: string,
-    userEmail: string,
-    resetToken: string
-  ) {
+  resetPasswordTemplate(userName: string, userEmail: string, resetToken: string) {
     const mailGenerator = new Mailgen({
       theme: "default",
       product: {
