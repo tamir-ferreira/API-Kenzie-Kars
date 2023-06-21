@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { requestAddressSchema, updateAddressSchema } from "./addresses.schema";
+import { returnAddressSchema, updateAddressSchema } from "./addresses.schema";
 
 export const userSchema = z.object({
   id: z.number(),
@@ -16,7 +16,7 @@ export const userSchema = z.object({
   reset_token: z.string().nullish().optional(),
   createdAt: z.string().or(z.date()),
   updatedAt: z.string().or(z.date()),
-  address: requestAddressSchema.nullish(),
+  address: returnAddressSchema.nullish(),
 });
 
 export const userIdSchema = z.object({
