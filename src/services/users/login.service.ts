@@ -27,7 +27,7 @@ const loginService = async (loginData: LoginRequest): Promise<string> => {
   }
 
   const token = jwt.sign({ id: user.id }, String(process.env.SECRET_KEY), {
-    expiresIn: "24h",
+    expiresIn: process.env.EXPIRES_IN,
     subject: String(user.id),
   });
 
