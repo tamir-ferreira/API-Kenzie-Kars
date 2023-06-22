@@ -18,7 +18,18 @@ const createAdvertController = async (req: Request, res: Response) => {
 };
 
 const readAdvertsController = async (req: Request, res: Response) => {
-  const adverts = await readAdvertsService();
+  const queryBrand: any = req.query.brand;
+  const queryModel: any = req.query.model;
+  const queryColor: any = req.query.color;
+  const queryYear: any = req.query.year;
+  const queryFuel: any = req.query.fuel;
+  const adverts = await readAdvertsService(
+    queryBrand,
+    queryModel,
+    queryColor,
+    queryYear,
+    queryFuel
+  );
 
   return res.status(200).json(adverts);
 };
