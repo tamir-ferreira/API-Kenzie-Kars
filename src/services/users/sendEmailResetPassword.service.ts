@@ -10,7 +10,7 @@ const sendEmailResetPasswordService = async (email: string) => {
   const user = await userRepository.findOneBy({
     email: email,
   });
-  // console.log(user);
+
   if (!user) {
     throw new AppError("user not found", 404);
   }
@@ -20,7 +20,6 @@ const sendEmailResetPasswordService = async (email: string) => {
   await userRepository.update({ email }, { reset_token: resetToken });
 
   const resetPasswordTemplate = emailService.resetPasswordTemplate(user.name, email, resetToken);
-  // console.log(resetPasswordTemplate);
 
   await emailService.sendEmail(resetPasswordTemplate);
 };

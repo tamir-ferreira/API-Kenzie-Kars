@@ -66,6 +66,9 @@ export class Advert {
     if (this.model) {
       this.model = this.capitalizeFirstLetter(this.model);
     }
+    if (this.color) {
+      this.color = this.capitalizeFirstLetter(this.color);
+    }
   }
 
   private capitalizeFirstLetter(value: string): string {
