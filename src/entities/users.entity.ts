@@ -31,8 +31,7 @@ export class User {
   @Column({ type: "varchar", length: 14 })
   cpf: string;
 
-  // @Column({ type: "date" })
-  @Column({ type: "varchar" })
+  @Column({ type: "date" })
   birthdate: string;
 
   @Column({ type: "varchar", nullable: true })
