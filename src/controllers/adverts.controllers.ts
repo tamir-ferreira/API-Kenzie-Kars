@@ -23,12 +23,16 @@ const readAdvertsController = async (req: Request, res: Response) => {
   const queryColor: any = req.query.color;
   const queryYear: any = req.query.year;
   const queryFuel: any = req.query.fuel;
+  const queryMileage: any = req.query.mileage;
+  const queryPrice: any = req.query.price;
   const adverts = await readAdvertsService(
     queryBrand,
     queryModel,
     queryColor,
     queryYear,
-    queryFuel
+    queryFuel,
+    queryMileage,
+    queryPrice
   );
 
   return res.status(200).json(adverts);

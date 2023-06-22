@@ -10,17 +10,24 @@ const readAdvertsService = async (
   model: any,
   color: any,
   year: any,
-  fuel: any
+  fuel: any,
+  mileage: any,
+  price: any
 ): Promise<tAdvertMultiple> => {
   const advertRepository: Repository<Advert> =
     AppDataSource.getRepository(Advert);
 
   let adverts: any;
 
-  console.log(model);
-  console.log(brand);
-
-  if (brand == "" && model == "" && color == "" && year == "" && fuel == "") {
+  if (
+    brand == "" &&
+    model == "" &&
+    color == "" &&
+    year == "" &&
+    fuel == "" &&
+    mileage == "" &&
+    price == ""
+  ) {
     adverts = await advertRepository.find({
       relations: {
         user: true,
@@ -37,6 +44,10 @@ const readAdvertsService = async (
         color: color !== "" ? color : null,
         year: year !== "" ? year : null,
         fuel: fuel !== "" ? fuel : null,
+      },
+      order: {
+        mileage: mileage !== "" ? mileage : undefined,
+        price: price !== "" ? price : undefined,
       },
     });
   }
