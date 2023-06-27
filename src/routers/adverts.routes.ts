@@ -6,33 +6,43 @@ import {
 import {
   createAdvertController,
   deleteAdvertController,
+  readAdvertByIdController,
   readAdvertsController,
   updateAdvertController,
 } from "../controllers/adverts.controllers";
-import ensureDataIsValid from "../middlewares/ensureDataIsValid.middleware";
 import ensureAdvertExists from "../middlewares/adverts/ensureAdvertExists.middleware";
-import { verifyTokenMiddleware } from "../middlewares/ensureTokenIsValid.middleware";
+import verifyTokenMiddleware from "../middlewares/jwt/ensureTokenIsValid.middleware";
+import ensureDataIsValidMiddleware from "../middlewares/jwt/ensureDataIsValid.middleware";
+import checkAdvertOwnershipMiddleware from "../middlewares/adverts/checkAdvertOwnership.middleware";
 
 const advertsRoutes = Router();
 
 advertsRoutes.post(
   "",
   verifyTokenMiddleware,
-  ensureDataIsValid(advertSchemaRequest),
+  ensureDataIsValidMiddleware(advertSchemaRequest),
   createAdvertController
 );
 
 advertsRoutes.get("", readAdvertsController);
 
+advertsRoutes.get("/:id", readAdvertByIdController);
+
 advertsRoutes.use(verifyTokenMiddleware);
 
 advertsRoutes.patch(
   "/:id",
-  ensureDataIsValid(advertSchemaUpdate),
+  ensureDataIsValidMiddleware(advertSchemaUpdate),
   ensureAdvertExists,
+  checkAdvertOwnershipMiddleware,
   updateAdvertController
 );
 
-advertsRoutes.delete("/:id", ensureAdvertExists, deleteAdvertController);
+advertsRoutes.delete(
+  "/:id",
+  ensureAdvertExists,
+  checkAdvertOwnershipMiddleware,
+  deleteAdvertController
+);
 
 export default advertsRoutes;

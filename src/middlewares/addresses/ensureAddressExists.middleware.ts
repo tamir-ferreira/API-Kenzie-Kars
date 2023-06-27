@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { AppDataSource } from "../../data-source";
 import { Address } from "../../entities/addresses.entity";
 
-const ensureAddressExists = async (
+export const ensureAddressExistsMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -26,4 +26,4 @@ const ensureAddressExists = async (
   return next();
 };
 
-export default ensureAddressExists;
+export default ensureAddressExistsMiddleware;

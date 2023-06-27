@@ -4,7 +4,7 @@ import { UserResponseMultiple } from "../../interfaces/users.interfaces";
 import { AppDataSource } from "../../data-source";
 import { multipleUserSchemaResponse } from "../../schemas/users.schemas";
 
-const listUsersService = async (): Promise<UserResponseMultiple> => {
+const readUsersService = async (): Promise<UserResponseMultiple> => {
   const userRepository: Repository<User> = AppDataSource.getRepository(User);
 
   const users: User[] = await userRepository.find({
@@ -14,4 +14,4 @@ const listUsersService = async (): Promise<UserResponseMultiple> => {
   return multipleUserSchemaResponse.parse(users);
 };
 
-export default listUsersService;
+export default readUsersService;

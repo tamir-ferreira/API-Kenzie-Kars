@@ -5,10 +5,13 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  OneToMany,
   BeforeInsert,
   BeforeUpdate,
 } from "typeorm";
 import { User } from "./users.entity";
+import { Comment } from "./comments.entity";
+import { nullable } from "zod";
 
 @Entity("adverts")
 export class Advert {
@@ -56,6 +59,11 @@ export class Advert {
 
   @ManyToOne(() => User, (user) => user.adverts, { onDelete: "CASCADE" })
   user: User;
+
+  @OneToMany(() => Comment, (comment) => comment.advert, {
+    onDelete: "CASCADE",
+  })
+  comments: Comment[];
 
   @BeforeInsert()
   @BeforeUpdate()

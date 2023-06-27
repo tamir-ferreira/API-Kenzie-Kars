@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entities/users.entity";
 
-const checkUniqueMail = async (
+const checkUniqueMailMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -17,11 +17,11 @@ const checkUniqueMail = async (
 
   if (user) {
     return res.status(400).json({
-      message: "Email already registered",
+      message: "Email já registrado",
     });
   }
 
   return next();
 };
 
-export default checkUniqueMail;
+export default checkUniqueMailMiddleware;

@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import { Repository } from "typeorm";
-import { AppDataSource } from "../data-source";
-import { User } from "../entities/users.entity";
-import { AppError } from "../errors";
+import { AppDataSource } from "../../data-source";
+import { User } from "../../entities/users.entity";
+import { AppError } from "../../errors";
 
-export const ensureIdExistMiddleware = async (
+const ensureUserExistsMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -18,9 +18,11 @@ export const ensureIdExistMiddleware = async (
       },
     });
     if (!findIdUser) {
-      throw new AppError("User not found", 404);
+      throw new AppError("Usuário não encontrado", 404);
     }
     return next();
   }
   return next();
 };
+
+export default ensureUserExistsMiddleware;

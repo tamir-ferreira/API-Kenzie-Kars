@@ -4,11 +4,12 @@ import {
   advertSchema,
   advertSchemaMultiple,
   advertSchemaRequest,
+  // advertSchemaResWithComment,
 } from "../schemas/adverts.schemas";
 
-type tAdvert = z.infer<typeof advertSchema>;
-type tAdvertRequest = z.infer<typeof advertSchemaRequest>;
-type tAdvertMultiple = z.infer<typeof advertSchemaMultiple>;
-type tAdvertUpdate = DeepPartial<tAdvertRequest>;
-
-export { tAdvert, tAdvertRequest, tAdvertMultiple, tAdvertUpdate };
+export type tAdvert = z.infer<typeof advertSchema>;
+export type tAdvertRequest = z.infer<typeof advertSchemaRequest>;
+export type tAdvertMultiple = z.infer<typeof advertSchemaMultiple>;
+export type tAdvertUpdate = DeepPartial<tAdvertRequest>;
+// export type tAdvertResWithComment = z.infer<typeof advertSchemaResWithComment>;
+// export type tAdvertMultipleWithComment = z.infer<typeof advertSchemaMultiple>;
