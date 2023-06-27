@@ -30,16 +30,19 @@ const updateCommentService = async (
     .where("id = :id", { id: id })
     .execute();
 
-  const updatedComment: Comment | null = await commentRepository.findOne({
-    where: { id: id },
-    relations: { user: true, advert: true },
-  });
+  const comment: Comment | null = await commentRepository
+    .createQueryBuilder("comments")
+    .select(["comments", "users.id", "users.name", "users.email", "adverts.id"])
+    .innerJoin("comments.user", "users")
+    .innerJoin("comments.advert", "adverts")
+    .where("comments.id = :id", { id: id })
+    .getOne();
 
-  if (!updatedComment) {
+  if (!comment) {
     throw new AppError("Comentário não encontrado", 404);
   }
 
-  return updatedComment;
+  return comment;
 };
 
 export default updateCommentService;
