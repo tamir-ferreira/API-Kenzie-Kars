@@ -9,7 +9,14 @@ const readCommentsService = async (): Promise<tCommentResponseMultiple> => {
 
   const comments = commentRepository
     .createQueryBuilder("comments")
-    .select(["comments", "users.id", "users.name", "users.email", "adverts.id"])
+    .select([
+      "comments",
+      "users.id",
+      "users.name",
+      "users.email",
+      "users.color",
+      "adverts.id",
+    ])
     .innerJoin("comments.user", "users")
     .innerJoin("comments.advert", "adverts")
     .getMany();

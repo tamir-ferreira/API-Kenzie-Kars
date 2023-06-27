@@ -17,7 +17,7 @@ import ensureCommentExistsMiddleware from "../middlewares/comments/ensureComment
 
 const commentsRoutes: Router = Router();
 
-commentsRoutes.use(verifyTokenMiddleware);
+//commentsRoutes.use(verifyTokenMiddleware);
 
 commentsRoutes.post(
   "/:id",
@@ -28,10 +28,11 @@ commentsRoutes.post(
 
 commentsRoutes.get("", listCommentsController);
 
-commentsRoutes.get("/:id", listCommentByIdController);
+commentsRoutes.get("/:id", verifyTokenMiddleware, listCommentByIdController);
 
 commentsRoutes.patch(
   "/:id",
+  verifyTokenMiddleware,
   ensureDataIsValidMiddleware(commentSchemaUpdate),
   ensureCommentExistsMiddleware,
   checkCommentOwnershipMiddleware,
@@ -40,6 +41,7 @@ commentsRoutes.patch(
 
 commentsRoutes.delete(
   "/:id",
+  verifyTokenMiddleware,
   ensureCommentExistsMiddleware,
   checkCommentOwnershipMiddleware,
   deleteCommentController
