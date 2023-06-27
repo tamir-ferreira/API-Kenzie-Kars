@@ -3,7 +3,7 @@ import {
   requestAddressSchema,
   returnAddressSchema,
   updateAddressSchema,
-} from "./addresses.schema";
+} from "./addresses.schemas";
 
 export const userSchema = z.object({
   id: z.number(),
@@ -48,3 +48,9 @@ export const multipleUserSchemaResponse = z.array(userSchemaResponse);
 export const userSchemaUpdate = userSchemaRequest
   .extend({ address: updateAddressSchema.nullish() })
   .partial();
+
+export const userSchemaResponsePartial = z.object({
+  id: z.number(),
+  name: z.string(),
+  email: z.string().email(),
+});

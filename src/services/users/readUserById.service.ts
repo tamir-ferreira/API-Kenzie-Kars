@@ -3,11 +3,10 @@ import { User } from "../../entities/users.entity";
 import { Repository } from "typeorm";
 import { userSchemaResponse } from "../../schemas/users.schemas";
 
-export const listUserByIdService = async (idUser: number): Promise<any> => {
-  const categoryRepository: Repository<User> =
-    AppDataSource.getRepository(User);
+const readUserByIdService = async (idUser: number): Promise<any> => {
+  const userRepository: Repository<User> = AppDataSource.getRepository(User);
 
-  const findUser = await categoryRepository.findOne({
+  const findUser = await userRepository.findOne({
     where: {
       id: idUser,
     },
@@ -17,3 +16,5 @@ export const listUserByIdService = async (idUser: number): Promise<any> => {
 
   return categories;
 };
+
+export default readUserByIdService;

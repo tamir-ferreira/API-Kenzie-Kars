@@ -4,20 +4,18 @@ import createAdvertService from "../services/adverts/createAdvert.service";
 import readAdvertsService from "../services/adverts/readAdverts.service";
 import updateAdvertService from "../services/adverts/updateAdvert.service";
 import deleteAdvertService from "../services/adverts/deleteAdvert.service";
-import { log } from "console";
+import readAdvertByIdService from "../services/adverts/readAdvertById.service";
 
-const createAdvertController = async (req: Request, res: Response) => {
+export const createAdvertController = async (req: Request, res: Response) => {
   const body: tAdvertRequest = req.body;
   const userId = res.locals.userId;
-
-  console.log(userId);
 
   const newAdvert = await createAdvertService(body, userId);
 
   return res.status(201).json(newAdvert);
 };
 
-const readAdvertsController = async (req: Request, res: Response) => {
+export const readAdvertsController = async (req: Request, res: Response) => {
   const queryBrand: any = req.query.brand;
   const queryModel: any = req.query.model;
   const queryColor: any = req.query.color;
@@ -38,7 +36,14 @@ const readAdvertsController = async (req: Request, res: Response) => {
   return res.status(200).json(adverts);
 };
 
-const updateAdvertController = async (req: Request, res: Response) => {
+export const readAdvertByIdController = async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const advert = await readAdvertByIdService(id);
+
+  return res.status(200).json(advert);
+};
+
+export const updateAdvertController = async (req: Request, res: Response) => {
   const body = req.body;
   const id = Number(req.params.id);
   const updatedAdvert = await updateAdvertService(body, id);
@@ -46,16 +51,9 @@ const updateAdvertController = async (req: Request, res: Response) => {
   return res.status(200).json(updatedAdvert);
 };
 
-const deleteAdvertController = async (req: Request, res: Response) => {
+export const deleteAdvertController = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   await deleteAdvertService(id);
 
   return res.status(204).json();
-};
-
-export {
-  createAdvertController,
-  readAdvertsController,
-  updateAdvertController,
-  deleteAdvertController,
 };

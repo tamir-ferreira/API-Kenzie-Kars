@@ -2,13 +2,13 @@ import { Request, Response } from "express";
 import { UserRequest } from "../interfaces/users.interfaces";
 import createUserService from "../services/users/createUser.service";
 import { LoginRequest } from "../interfaces/users.interfaces";
-import loginService from "../services/users/login.service";
-import listUsersService from "../services/users/listUsers.service";
-import { listUserByIdService } from "../services/users/listUserById.service";
+import loginService from "../services/login/login.service";
+import readUsersService from "../services/users/readUsers.service";
+import readUserByIdService from "../services/users/readUserById.service";
 import updateUserService from "../services/users/updateUser.service";
 import deleteUserService from "../services/users/deleteUser.service";
-import sendEmailResetPasswordService from "../services/users/sendEmailResetPassword.service";
-import resetPasswordService from "../services/users/resetPassword.service";
+import sendEmailResetPasswordService from "../services/resetPassword/sendEmailResetPassword.service";
+import resetPasswordService from "../services/resetPassword/resetPassword.service";
 
 export const createUserController = async (
   request: Request,
@@ -20,21 +20,21 @@ export const createUserController = async (
   return response.status(201).json(newUser);
 };
 
-export const listUsersController = async (
+export const readUsersController = async (
   request: Request,
   response: Response
 ): Promise<Response> => {
-  const users = await listUsersService();
+  const users = await readUsersService();
 
   return response.status(200).json(users);
 };
 
-export const listUserByIdController = async (
+export const readUserByIdController = async (
   request: Request,
   response: Response
 ): Promise<Response> => {
   const idUser: number = parseInt(request.params.id);
-  const user = await listUserByIdService(idUser);
+  const user = await readUserByIdService(idUser);
 
   return response.status(200).json(user);
 };

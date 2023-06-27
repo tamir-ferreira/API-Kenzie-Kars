@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { AppDataSource } from "../../data-source";
 import { Advert } from "../../entities/adverts.entity";
 
-const ensureAdvertExists = async (
+const ensureAdvertExistsMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -15,15 +15,20 @@ const ensureAdvertExists = async (
     where: {
       id: id,
     },
+    relations: {
+      user: true,
+      comments: true,
+    },
   });
 
   if (!advert) {
     return res.status(404).json({
-      message: "Advert not found",
+      message: "Anúncio não encontrado",
     });
+  } else {
+    res.locals.advert = advert;
+    return next();
   }
-
-  return next();
 };
 
-export default ensureAdvertExists;
+export default ensureAdvertExistsMiddleware;

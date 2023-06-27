@@ -1,6 +1,6 @@
 import { AppDataSource } from "../../data-source";
 import { Repository } from "typeorm";
-import { returnAddressSchema } from "../../schemas/addresses.schema";
+import { returnAddressSchema } from "../../schemas/addresses.schemas";
 import {
   IReturnAddress,
   TUpdateAddress,

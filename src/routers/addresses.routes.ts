@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { verifyTokenMiddleware } from "../middlewares/ensureTokenIsValid.middleware";
 import { updateAddressController } from "../controllers/address.controllers";
-import { updateAddressSchema } from "../schemas/addresses.schema";
-import ensureDataIsValid from "../middlewares/ensureDataIsValid.middleware";
+import { updateAddressSchema } from "../schemas/addresses.schemas";
+import verifyTokenMiddleware from "../middlewares/jwt/ensureTokenIsValid.middleware";
+import ensureDataIsValid from "../middlewares/jwt/ensureDataIsValid.middleware";
 import ensureAddressExists from "../middlewares/addresses/ensureAddressExists.middleware";
 
 const addressesRoutes = Router();

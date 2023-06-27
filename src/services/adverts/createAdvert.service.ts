@@ -4,7 +4,6 @@ import { tAdvertRequest, tAdvert } from "../../interfaces/adverts.interfaces";
 import { advertSchema } from "../../schemas/adverts.schemas";
 import { Advert } from "../../entities/adverts.entity";
 import { User } from "../../entities/users.entity";
-import { log } from "console";
 
 const createAdvertService = async (
   data: tAdvertRequest,

@@ -1,7 +1,8 @@
 import { z } from "zod";
 import { userSchemaResponse } from "./users.schemas";
+import { commentSchemaResponse } from "./comments.schemas";
 
-const advertSchema = z.object({
+export const advertSchema = z.object({
   id: z.number(),
   brand: z.string().max(40),
   model: z.string().max(40),
@@ -17,22 +18,19 @@ const advertSchema = z.object({
   updatedAt: z.string(),
   is_active: z.boolean().optional().default(true),
   user: userSchemaResponse.nullish(),
+  comments: commentSchemaResponse.array().nullish(),
 });
 
-const advertSchemaRequest = advertSchema.omit({
+export const advertSchemaRequest = advertSchema.omit({
   id: true,
   createdAt: true,
   updatedAt: true,
   user: true,
+  comments: true,
 });
 
-const advertSchemaMultiple = advertSchema.array();
+export const advertSchemaMultiple = advertSchema.array();
 
-const advertSchemaUpdate = advertSchemaRequest.partial();
+export const advertSchemaUpdate = advertSchemaRequest.partial();
 
-export {
-  advertSchema,
-  advertSchemaRequest,
-  advertSchemaMultiple,
-  advertSchemaUpdate,
-};
+export const advertSchemaResponsePartial = z.object({ id: z.number() });

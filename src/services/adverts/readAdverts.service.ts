@@ -1,9 +1,8 @@
 import { AppDataSource } from "../../data-source";
 import { Repository } from "typeorm";
-import { tAdvertMultiple } from "../../interfaces/adverts.interfaces";
 import { advertSchemaMultiple } from "../../schemas/adverts.schemas";
 import { Advert } from "../../entities/adverts.entity";
-import { log } from "console";
+import { tAdvertMultiple } from "../../interfaces/adverts.interfaces";
 
 const readAdvertsService = async (
   brand: any,
@@ -31,12 +30,14 @@ const readAdvertsService = async (
     adverts = await advertRepository.find({
       relations: {
         user: true,
+        comments: true,
       },
     });
   } else {
     adverts = await advertRepository.find({
       relations: {
         user: true,
+        comments: true,
       },
       where: {
         brand: brand !== "" ? brand : null,

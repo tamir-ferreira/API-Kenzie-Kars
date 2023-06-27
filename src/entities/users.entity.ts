@@ -13,6 +13,7 @@ import {
 } from "typeorm";
 import { Advert } from "./adverts.entity";
 import { Address } from "./addresses.entity";
+import { Comment } from "./comments.entity";
 
 @Entity("users")
 export class User {
@@ -60,6 +61,9 @@ export class User {
 
   @OneToMany(() => Advert, (advert) => advert.user, { onDelete: "CASCADE" })
   adverts: Advert[];
+
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments: Comment[];
 
   @OneToOne(() => Address, { onDelete: "CASCADE" })
   @JoinColumn()

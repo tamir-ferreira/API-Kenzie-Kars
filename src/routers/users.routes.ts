@@ -2,17 +2,18 @@ import { Router } from "express";
 import {
   createUserController,
   deleteUserController,
-  listUserByIdController,
-  listUsersController,
+  readUserByIdController,
+  readUsersController,
   updateUserController,
   sendEmailResetPasswordController,
   resetPasswordController,
 } from "../controllers/users.controllers";
-import ensureDataIsValid from "../middlewares/ensureDataIsValid.middleware";
-import { userSchemaRequest, userSchemaUpdate } from "../schemas/users.schemas";
+import ensureDataIsValid from "../middlewares/jwt/ensureDataIsValid.middleware";
 import checkUniqueMail from "../middlewares/users/checkUniqueEmail.middleware";
-import { ensureIdExistMiddleware } from "../middlewares/ensureIdExist.middleware";
-import { verifyTokenMiddleware } from "../middlewares/ensureTokenIsValid.middleware";
+import ensureIdExistMiddleware from "../middlewares/users/ensureIdExist.middleware";
+import verifyTokenMiddleware from "../middlewares/jwt/ensureTokenIsValid.middleware";
+import { userSchemaRequest, userSchemaUpdate } from "../schemas/users.schemas";
+import checkOwnershipMiddleware from "../middlewares/users/checkOwnership.middleware";
 
 const usersRoutes: Router = Router();
 
@@ -23,9 +24,9 @@ usersRoutes.post(
   createUserController
 );
 
-usersRoutes.get("", listUsersController);
+usersRoutes.get("", readUsersController);
 
-usersRoutes.get("/:id", ensureIdExistMiddleware, listUserByIdController);
+usersRoutes.get("/:id", ensureIdExistMiddleware, readUserByIdController);
 
 usersRoutes.post("/resetPassword", sendEmailResetPasswordController);
 
@@ -37,9 +38,15 @@ usersRoutes.patch(
   "/:id",
   ensureDataIsValid(userSchemaUpdate),
   ensureIdExistMiddleware,
+  checkOwnershipMiddleware,
   updateUserController
 );
 
-usersRoutes.delete("/:id", ensureIdExistMiddleware, deleteUserController);
+usersRoutes.delete(
+  "/:id",
+  ensureIdExistMiddleware,
+  checkOwnershipMiddleware,
+  deleteUserController
+);
 
 export default usersRoutes;

@@ -4,7 +4,7 @@ import { UserRequest, UserResponse } from "../../interfaces/users.interfaces";
 import { AppDataSource } from "../../data-source";
 import { userSchemaResponse } from "../../schemas/users.schemas";
 import { Address } from "../../entities/addresses.entity";
-import { returnAddressSchema } from "../../schemas/addresses.schema";
+import { returnAddressSchema } from "../../schemas/addresses.schemas";
 
 const createUserService = async (
   userData: UserRequest
