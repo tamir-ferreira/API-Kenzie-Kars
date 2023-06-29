@@ -1,8 +1,7 @@
 import { AppDataSource } from "../../data-source";
 import { Repository } from "typeorm";
-import { advertSchemaMultiple } from "../../schemas/adverts.schemas";
 import { Advert } from "../../entities/adverts.entity";
-import { tAdvertMultiple } from "../../interfaces/adverts.interfaces";
+import { iResMultipleAdverts } from "../../interfaces/adverts.interfaces";
 
 const readAdvertsService = async (
   brand: any,
@@ -11,12 +10,24 @@ const readAdvertsService = async (
   year: any,
   fuel: any,
   mileage: any,
-  price: any
-): Promise<tAdvertMultiple> => {
+  price: any,
+  query: any
+): Promise<iResMultipleAdverts> => {
   const advertRepository: Repository<Advert> =
     AppDataSource.getRepository(Advert);
 
   let adverts: any;
+  let page: number = +query.page || 1;
+  let perPage: number = +query.perPage || 9;
+  const advertCount: number = await advertRepository.count();
+
+  if (page < 0) {
+    page = 1;
+  }
+
+  if (perPage < 0) {
+    perPage = 9;
+  }
 
   if (
     brand == "" &&
@@ -28,13 +39,20 @@ const readAdvertsService = async (
     price == ""
   ) {
     adverts = await advertRepository.find({
+      take: perPage,
+      skip: perPage * (page - 1),
       relations: {
         user: true,
         comments: true,
       },
+      order: {
+        id: "ASC",
+      },
     });
   } else {
     adverts = await advertRepository.find({
+      take: perPage,
+      skip: perPage * (page - 1),
       relations: {
         user: true,
         comments: true,
@@ -47,13 +65,26 @@ const readAdvertsService = async (
         fuel: fuel !== "" ? fuel : null,
       },
       order: {
+        id: "ASC",
         mileage: mileage !== "" ? mileage : undefined,
         price: price !== "" ? price : undefined,
       },
     });
   }
 
-  return advertSchemaMultiple.parse(adverts);
+  const result: iResMultipleAdverts = {
+    prevPage:
+      page === undefined || page === 1
+        ? null
+        : `http://localhost:3000/adverts?page=${page - 1}&perPage=${perPage}`,
+    nextPage:
+      advertCount <= adverts.length + perPage * (page - 1)
+        ? null
+        : `http://localhost:3000/adverts?page=${page + 1}&perPage=${perPage}`,
+    data: adverts,
+  };
+
+  return result;
 };
 
 export default readAdvertsService;

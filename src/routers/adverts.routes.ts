@@ -17,18 +17,18 @@ import checkAdvertOwnershipMiddleware from "../middlewares/adverts/checkAdvertOw
 
 const advertsRoutes = Router();
 
+advertsRoutes.get("", readAdvertsController);
+
+advertsRoutes.get("/:id", readAdvertByIdController);
+
+advertsRoutes.use(verifyTokenMiddleware);
+
 advertsRoutes.post(
   "",
   verifyTokenMiddleware,
   ensureDataIsValidMiddleware(advertSchemaRequest),
   createAdvertController
 );
-
-advertsRoutes.get("", readAdvertsController);
-
-advertsRoutes.get("/:id", readAdvertByIdController);
-
-advertsRoutes.use(verifyTokenMiddleware);
 
 advertsRoutes.patch(
   "/:id",
