@@ -23,6 +23,7 @@ export const readAdvertsController = async (req: Request, res: Response) => {
   const queryFuel: any = req.query.fuel;
   const queryMileage: any = req.query.mileage;
   const queryPrice: any = req.query.price;
+  const query: any = req.query;
   const adverts = await readAdvertsService(
     queryBrand,
     queryModel,
@@ -30,7 +31,8 @@ export const readAdvertsController = async (req: Request, res: Response) => {
     queryYear,
     queryFuel,
     queryMileage,
-    queryPrice
+    queryPrice,
+    query
   );
 
   return res.status(200).json(adverts);

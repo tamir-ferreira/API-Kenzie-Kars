@@ -8,10 +8,12 @@ import {
   OneToMany,
   BeforeInsert,
   BeforeUpdate,
+  OneToOne,
+  JoinColumn,
 } from "typeorm";
 import { User } from "./users.entity";
 import { Comment } from "./comments.entity";
-import { nullable } from "zod";
+import { Image } from "./images.entity";
 
 @Entity("adverts")
 export class Advert {
@@ -64,6 +66,12 @@ export class Advert {
     onDelete: "CASCADE",
   })
   comments: Comment[];
+
+  @OneToOne(() => Image, {
+    onDelete: "CASCADE",
+  })
+  @JoinColumn()
+  images: Image | null | undefined;
 
   @BeforeInsert()
   @BeforeUpdate()
