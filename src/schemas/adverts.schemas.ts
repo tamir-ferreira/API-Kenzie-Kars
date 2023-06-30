@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { userSchemaResponse } from "./users.schemas";
 import { commentSchemaResponse } from "./comments.schemas";
+import { imagesSchema, returnImagesSchema } from "./images.schemas";
 
 export const advertSchema = z.object({
   id: z.number(),
@@ -19,15 +20,20 @@ export const advertSchema = z.object({
   is_active: z.boolean().optional().default(true),
   user: userSchemaResponse.nullish(),
   comments: commentSchemaResponse.array().nullish(),
+  images: returnImagesSchema.nullish(),
 });
 
-export const advertSchemaRequest = advertSchema.omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-  user: true,
-  comments: true,
-});
+export const advertSchemaRequest = advertSchema
+  .omit({
+    id: true,
+    createdAt: true,
+    updatedAt: true,
+    user: true,
+    comments: true,
+  })
+  .extend({
+    images: imagesSchema.nullish(),
+  });
 
 export const advertSchemaMultiple = advertSchema.array();
 
