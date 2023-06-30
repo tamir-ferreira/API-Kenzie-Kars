@@ -11,7 +11,7 @@ import { returnImagesSchema } from "../../schemas/images.schemas";
 const createAdvertService = async (
   data: tAdvertRequest,
   userId: number
-): Promise<tAdvert> => {
+): Promise<tAdvert | void> => {
   const advertRepository: Repository<Advert> =
     AppDataSource.getRepository(Advert);
 
@@ -21,33 +21,48 @@ const createAdvertService = async (
 
   const imageObj: tImages | null | undefined = data.images;
 
-  imageObj ? imageRepository.create(imageObj) : null;
+  if (imageObj !== undefined && imageObj !== null) {
+    imageRepository.create(imageObj);
+    await imageRepository.save(imageObj);
+    const newGallery = returnImagesSchema.parse(imageObj);
+    const user: User | null = await userRepository.findOne({
+      where: {
+        id: userId,
+      },
+    });
 
-  imageObj ? await imageRepository.save(imageObj) : null;
+    const gallery: Image | null = await imageRepository.findOne({
+      where: {
+        id: newGallery.id,
+      },
+    });
 
-  const newGallery = returnImagesSchema.parse(imageObj);
+    const advert: Advert = advertRepository.create({
+      ...data,
+      user: user!,
+      images: gallery,
+    });
 
-  const user: User | null = await userRepository.findOne({
-    where: {
-      id: userId,
-    },
-  });
+    await advertRepository.save(advert);
 
-  const gallery: Image | null = await imageRepository.findOne({
-    where: {
-      id: newGallery.id,
-    },
-  });
+    return advertSchema.parse(advert);
+  } else {
+    const user: User | null = await userRepository.findOne({
+      where: {
+        id: userId,
+      },
+    });
 
-  const advert: Advert = advertRepository.create({
-    ...data,
-    user: user!,
-    images: gallery,
-  });
+    const advert: Advert = advertRepository.create({
+      ...data,
+      user: user!,
+      images: null,
+    });
 
-  await advertRepository.save(advert);
+    await advertRepository.save(advert);
 
-  return advertSchema.parse(advert);
+    return advertSchema.parse(advert);
+  }
 };
 
 export default createAdvertService;
