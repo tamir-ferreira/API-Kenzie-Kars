@@ -16,6 +16,12 @@ class Image {
 
   @Column({ type: "text", nullable: true })
   image_link_four: string | undefined | null;
+
+  @Column({ type: "text", nullable: true })
+  image_link_five: string | undefined | null;
+
+  @Column({ type: "text", nullable: true })
+  image_link_six: string | undefined | null;
 }
 
 export { Image };
