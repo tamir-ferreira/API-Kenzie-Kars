@@ -20,7 +20,7 @@ export const advertSchema = z.object({
   is_active: z.boolean().optional().default(true),
   user: userSchemaResponse.nullish(),
   comments: commentSchemaResponse.array().nullish(),
-  images: returnImagesSchema.nullish(),
+  images: returnImagesSchema.optional().nullish(),
 });
 
 export const advertSchemaRequest = advertSchema
@@ -32,7 +32,7 @@ export const advertSchemaRequest = advertSchema
     comments: true,
   })
   .extend({
-    images: imagesSchema.nullish(),
+    images: imagesSchema.optional().nullish(),
   });
 
 export const advertSchemaMultiple = advertSchema.array();

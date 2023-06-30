@@ -3,16 +3,7 @@ import { Repository } from "typeorm";
 import { Advert } from "../../entities/adverts.entity";
 import { iResMultipleAdverts } from "../../interfaces/adverts.interfaces";
 
-const readAdvertsService = async (
-  brand: any,
-  model: any,
-  color: any,
-  year: any,
-  fuel: any,
-  mileage: any,
-  price: any,
-  query: any
-): Promise<iResMultipleAdverts> => {
+const readAdvertsService = async (query: any): Promise<iResMultipleAdverts> => {
   const advertRepository: Repository<Advert> =
     AppDataSource.getRepository(Advert);
 
@@ -30,13 +21,13 @@ const readAdvertsService = async (
   }
 
   if (
-    brand == "" &&
-    model == "" &&
-    color == "" &&
-    year == "" &&
-    fuel == "" &&
-    mileage == "" &&
-    price == ""
+    query.brand == "" &&
+    query.model == "" &&
+    query.color == "" &&
+    query.year == "" &&
+    query.fuel == "" &&
+    query.mileage == "" &&
+    query.price == ""
   ) {
     adverts = await advertRepository.find({
       take: perPage,
@@ -44,6 +35,7 @@ const readAdvertsService = async (
       relations: {
         user: true,
         comments: true,
+        images: true,
       },
       order: {
         id: "ASC",
@@ -56,18 +48,19 @@ const readAdvertsService = async (
       relations: {
         user: true,
         comments: true,
+        images: true,
       },
       where: {
-        brand: brand !== "" ? brand : null,
-        model: model !== "" ? model : null,
-        color: color !== "" ? color : null,
-        year: year !== "" ? year : null,
-        fuel: fuel !== "" ? fuel : null,
+        brand: query.brand !== "" ? query.brand : null,
+        model: query.model !== "" ? query.model : null,
+        color: query.color !== "" ? query.color : null,
+        year: query.year !== "" ? query.year : null,
+        fuel: query.fuel !== "" ? query.fuel : null,
       },
       order: {
         id: "ASC",
-        mileage: mileage !== "" ? mileage : undefined,
-        price: price !== "" ? price : undefined,
+        mileage: query.mileage !== "" ? query.mileage : undefined,
+        price: query.price !== "" ? query.price : undefined,
       },
     });
   }

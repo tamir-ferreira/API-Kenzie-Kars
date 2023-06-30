@@ -16,24 +16,8 @@ export const createAdvertController = async (req: Request, res: Response) => {
 };
 
 export const readAdvertsController = async (req: Request, res: Response) => {
-  const queryBrand: any = req.query.brand;
-  const queryModel: any = req.query.model;
-  const queryColor: any = req.query.color;
-  const queryYear: any = req.query.year;
-  const queryFuel: any = req.query.fuel;
-  const queryMileage: any = req.query.mileage;
-  const queryPrice: any = req.query.price;
   const query: any = req.query;
-  const adverts = await readAdvertsService(
-    queryBrand,
-    queryModel,
-    queryColor,
-    queryYear,
-    queryFuel,
-    queryMileage,
-    queryPrice,
-    query
-  );
+  const adverts = await readAdvertsService(query);
 
   return res.status(200).json(adverts);
 };
