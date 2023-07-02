@@ -6,14 +6,13 @@ import { AppError } from "../../errors";
 
 const resetPasswordService = async (password: string, resetToken: string) => {
   const userRepository: Repository<User> = AppDataSource.getRepository(User);
-  console.log(password);
 
   const user = await userRepository.findOneBy({
     reset_token: resetToken,
   });
 
   if (!user) {
-    throw new AppError("user not found", 404);
+    throw new AppError("Usuário não encontrado", 404);
   }
 
   const foundUser = await userRepository.findOneBy({ id: user.id });
