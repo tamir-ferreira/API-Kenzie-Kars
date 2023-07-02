@@ -9,13 +9,13 @@ Uma aplicação de compra e venda de veículos.
 - <a href="#-instalar">Instalando e rodando o projeto</a>
 - <a href="#-funcionalidades">Funcionalidades</a>
 - <a href="#-bibliotecas">Bibliotecas utilizadas</a>
-- <a href="#-ferramentas">Ferramentas</a>
-- <a href="#-endpoints">Endpoints</a>
-- <a href="#-requisitos">Requisitos de serviço</a>
+- <a href="#-ferramentas">Ferramentas utilizadas</a>
+- <a href="#-endpoints">Endpoints do serviço</a>
+- <a href="#-requisitos">Requisitos do serviço</a>
 - <a href="#-exemplos">Exemplos de requisição</a>
 - <a href="#-contribuidoras">Pessoas contribuidoras</a>
 
-## Instalando e rodando o projeto
+## <h2 id="#-instalar">Instalando e rodando o projeto<h2>
 
 ```bash
 # Instale as dependências:
@@ -42,7 +42,7 @@ $ http://localhost:3000
 
 - Cadastrar/Editar/Excluir um anúncio;
 
-## Bibliotecas utilizadas
+## <h2 id="-bibliotecas">Bibliotecas utilizadas</h2>
 
 - [x] express
 - [x] typeorm
@@ -57,7 +57,7 @@ $ http://localhost:3000
 - [x] cors
 - [x] bcryptjs
 
-## Ferramentas
+## <h2 id="-ferramentas">Ferramentas utilizadas</h2>
 
 - [x] VS CODE
 - [x] GitHub
@@ -66,7 +66,7 @@ $ http://localhost:3000
 - [x] Notion
 - [x] JIRA
 
-## Endpoints do serviço
+## <h2 id="-endpoints">Endpoints do serviço</h2>
 
 | Método | Endpoint                    | Responsabilidade                         | Autenticação         |
 | ------ | --------------------------- | ---------------------------------------- | -------------------- |
@@ -88,13 +88,13 @@ $ http://localhost:3000
 | PATCH  | /comments/:id               | Atualiza os dados de um comentário       | Dono do recurso      |
 | DELETE | /comments/:id               | Deleta um comentário                     | Dono do recurso      |
 
-## Requisitos do Serviço
+## <h2 id="-requisitos">Requisitos do serviço</h2>
 
 Esse serviço possui uma API REST para que os demais serviços consigam criar, listar, atualizar e deletar os links do banco de dados.
 
 - O banco de dados utilizado foi **PostgreSQL**.
 
-## Exemplos de requisição PATCH e POST:
+## <h2 id="-exemplos">Exemplos de requisição POST e PATCH</h2>
 
 ### **POST: /users**
 
@@ -421,7 +421,7 @@ Esse serviço possui uma API REST para que os demais serviços consigam criar, l
 }
 ```
 
-## Pessoas contribuidoras
+## <h2 id="-contribuidoras">Pessoas contribuidoras</h2>
 
 - [Antonio Augusto](https://github.com/AntonioAugustoRezende)
 - [Lucca Haddad](https://github.com/LuccaHaddadSerejo)
