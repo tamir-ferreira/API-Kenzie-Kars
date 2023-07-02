@@ -12,6 +12,7 @@ Uma aplicação de compra e venda de veículos.
 - <a href="#-ferramentas">Ferramentas</a>
 - <a href="#-endpoints">Endpoints</a>
 - <a href="#-requisitos">Requisitos de serviço</a>
+- <a href="#-exemplos">Exemplos de requisição</a>
 - <a href="#-contribuidoras">Pessoas contribuidoras</a>
 
 ## Instalando e rodando o projeto
@@ -27,7 +28,7 @@ $ npm run dev
 $ http://localhost:3000
 ```
 
-## Funcionalidades
+## <h2 id="funcionalidades">Funcionalidades</h2>
 
 ### Gerais
 
@@ -92,6 +93,8 @@ $ http://localhost:3000
 Esse serviço possui uma API REST para que os demais serviços consigam criar, listar, atualizar e deletar os links do banco de dados.
 
 - O banco de dados utilizado foi **PostgreSQL**.
+
+## Exemplos de requisição PATCH e POST:
 
 ### **POST: /users**
 
