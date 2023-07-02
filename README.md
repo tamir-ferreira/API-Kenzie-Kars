@@ -28,7 +28,7 @@ $ npm run dev
 $ http://localhost:3000
 ```
 
-## <h2 id="funcionalidades">Funcionalidades</h2>
+## <h2 id="-funcionalidades">Funcionalidades</h2>
 
 ### Gerais
 
