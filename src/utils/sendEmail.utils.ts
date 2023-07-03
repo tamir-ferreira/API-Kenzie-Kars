@@ -21,15 +21,19 @@ class EmailService {
         html: text,
       })
       .then(() => {
-        console.log("Email sent with successfully");
+        console.log("Email enviado com sucesso");
       })
       .catch((err) => {
         console.log(err);
-        throw new AppError("Error sending email, try again later", 500);
+        throw new AppError("Erro ao enviar email, tente novamente", 500);
       });
   }
 
-  resetPasswordTemplate(userName: string, userEmail: string, resetToken: string) {
+  resetPasswordTemplate(
+    userName: string,
+    userEmail: string,
+    resetToken: string
+  ) {
     const mailGenerator = new Mailgen({
       theme: "default",
       product: {
@@ -42,24 +46,24 @@ class EmailService {
       body: {
         name: userName,
         intro:
-          "You have received this email because a password reset request for your account was received.",
+          "Você recebeu esse email pois uma requisição para alteração de senha foi feita.",
         action: {
-          instructions: "Click the button below to reset your password:",
+          instructions: "Clique no botão abaixo para alterar a senha:",
           button: {
             color: "#4529E6",
-            text: "Reset your password",
+            text: "Altere sua senha",
             link: `http://localhost:5173/changePassword/${resetToken}`,
           },
         },
         outro:
-          "If you did not request a password reset, no further action is required on your part.",
+          "Se você não realizou a requisição, não é necessário realizar nenhum tipo de ação.",
       },
     };
 
     const emailBody = mailGenerator.generate(email);
     const emailTemplate = {
       to: userEmail,
-      subject: "Reset password",
+      subject: "Resetar senha",
       text: emailBody,
     };
 

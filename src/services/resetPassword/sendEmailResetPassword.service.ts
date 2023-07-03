@@ -12,14 +12,18 @@ const sendEmailResetPasswordService = async (email: string) => {
   });
 
   if (!user) {
-    throw new AppError("user not found", 404);
+    throw new AppError("Usuário não encontrado", 404);
   }
 
   const resetToken = randomUUID();
 
   await userRepository.update({ email }, { reset_token: resetToken });
 
-  const resetPasswordTemplate = emailService.resetPasswordTemplate(user.name, email, resetToken);
+  const resetPasswordTemplate = emailService.resetPasswordTemplate(
+    user.name,
+    email,
+    resetToken
+  );
 
   await emailService.sendEmail(resetPasswordTemplate);
 };
