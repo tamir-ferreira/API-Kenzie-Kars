@@ -7,6 +7,7 @@ import {
   createAdvertController,
   deleteAdvertController,
   readAdvertByIdController,
+  readAdvertByIdUserController,
   readAdvertsController,
   updateAdvertController,
 } from "../controllers/adverts.controllers";
@@ -20,6 +21,8 @@ const advertsRoutes = Router();
 advertsRoutes.get("", readAdvertsController);
 
 advertsRoutes.get("/:id", readAdvertByIdController);
+
+advertsRoutes.get("/user/:id", readAdvertByIdUserController);
 
 advertsRoutes.use(verifyTokenMiddleware);
 

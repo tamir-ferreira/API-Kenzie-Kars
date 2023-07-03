@@ -8,6 +8,7 @@ const readAdvertsService = async (query: any): Promise<iResMultipleAdverts> => {
     AppDataSource.getRepository(Advert);
 
   let adverts: any;
+  let advertsQuant: any;
   let page: number = +query.page || 1;
   let perPage: number = +query.perPage || 9;
   const advertCount: number = await advertRepository.count();
@@ -30,8 +31,6 @@ const readAdvertsService = async (query: any): Promise<iResMultipleAdverts> => {
     query.price == ""
   ) {
     adverts = await advertRepository.find({
-      take: perPage,
-      skip: perPage * (page - 1),
       relations: {
         user: true,
         comments: true,
@@ -40,11 +39,11 @@ const readAdvertsService = async (query: any): Promise<iResMultipleAdverts> => {
       order: {
         id: "ASC",
       },
+      take: perPage,
+      skip: perPage * (page - 1),
     });
   } else {
     adverts = await advertRepository.find({
-      take: perPage,
-      skip: perPage * (page - 1),
       relations: {
         user: true,
         comments: true,
@@ -58,9 +57,43 @@ const readAdvertsService = async (query: any): Promise<iResMultipleAdverts> => {
         fuel: query.fuel !== "" ? query.fuel : null,
       },
       order: {
-        id: "ASC",
         mileage: query.mileage !== "" ? query.mileage : undefined,
         price: query.price !== "" ? query.price : undefined,
+      },
+      take: perPage,
+      skip: perPage * (page - 1),
+    });
+  }
+
+  if (
+    query.brand == "" &&
+    query.model == "" &&
+    query.color == "" &&
+    query.year == "" &&
+    query.fuel == "" &&
+    query.mileage == "" &&
+    query.price == ""
+  ) {
+    advertsQuant = await advertRepository.find({
+      relations: {
+        user: true,
+        comments: true,
+        images: true,
+      },
+    });
+  } else {
+    advertsQuant = await advertRepository.find({
+      relations: {
+        user: true,
+        comments: true,
+        images: true,
+      },
+      where: {
+        brand: query.brand !== "" ? query.brand : null,
+        model: query.model !== "" ? query.model : null,
+        color: query.color !== "" ? query.color : null,
+        year: query.year !== "" ? query.year : null,
+        fuel: query.fuel !== "" ? query.fuel : null,
       },
     });
   }
@@ -69,11 +102,23 @@ const readAdvertsService = async (query: any): Promise<iResMultipleAdverts> => {
     prevPage:
       page === undefined || page === 1
         ? null
-        : `http://localhost:3000/adverts?page=${page - 1}&perPage=${perPage}`,
+        : `http://localhost:3000/adverts?page=${
+            page - 1
+          }&perPage=${perPage}&brand=${query.brand}&model=${
+            query.model
+          }&color=${query.color}&year=${query.year}&fuel=${
+            query.fuel
+          }&mileage=${query.mileage}&price=${query.price}`,
     nextPage:
-      advertCount <= adverts.length + perPage * (page - 1)
+      advertsQuant.length <= adverts.length + perPage * (page - 1)
         ? null
-        : `http://localhost:3000/adverts?page=${page + 1}&perPage=${perPage}`,
+        : `http://localhost:3000/adverts?page=${
+            page + 1
+          }&perPage=${perPage}&brand=${query.brand}&model=${
+            query.model
+          }&color=${query.color}&year=${query.year}&fuel=${
+            query.fuel
+          }&mileage=${query.mileage}&price=${query.price}`,
     data: adverts,
   };
 

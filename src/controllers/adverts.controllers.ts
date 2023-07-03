@@ -5,6 +5,7 @@ import readAdvertsService from "../services/adverts/readAdverts.service";
 import updateAdvertService from "../services/adverts/updateAdvert.service";
 import deleteAdvertService from "../services/adverts/deleteAdvert.service";
 import readAdvertByIdService from "../services/adverts/readAdvertById.service";
+import readAdvertByIdUserService from "../services/adverts/readAdvertByIdUser.service";
 
 export const createAdvertController = async (req: Request, res: Response) => {
   const body: tAdvertRequest = req.body;
@@ -25,6 +26,17 @@ export const readAdvertsController = async (req: Request, res: Response) => {
 export const readAdvertByIdController = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const advert = await readAdvertByIdService(id);
+
+  return res.status(200).json(advert);
+};
+
+export const readAdvertByIdUserController = async (
+  req: Request,
+  res: Response
+) => {
+  const id = Number(req.params.id);
+  const query: any = req.query;
+  const advert = await readAdvertByIdUserService(id, query);
 
   return res.status(200).json(advert);
 };
