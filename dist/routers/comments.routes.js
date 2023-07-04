@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const ensureTokenIsValid_middleware_1 = __importDefault(require("../middlewares/jwt/ensureTokenIsValid.middleware"));
+const ensureDataIsValid_middleware_1 = __importDefault(require("../middlewares/jwt/ensureDataIsValid.middleware"));
+const comments_controllers_1 = require("../controllers/comments.controllers");
+const comments_schemas_1 = require("../schemas/comments.schemas");
+const checkCommentOwnership_middleware_1 = __importDefault(require("../middlewares/comments/checkCommentOwnership.middleware"));
+const ensureCommentExists_middleware_1 = __importDefault(require("../middlewares/comments/ensureCommentExists.middleware"));
+const commentsRoutes = (0, express_1.Router)();
+//commentsRoutes.use(verifyTokenMiddleware);
+commentsRoutes.post("/:id", ensureTokenIsValid_middleware_1.default, (0, ensureDataIsValid_middleware_1.default)(comments_schemas_1.commentSchemaRequest), comments_controllers_1.createCommentController);
+commentsRoutes.get("", comments_controllers_1.listCommentsController);
+commentsRoutes.get("/:id", ensureTokenIsValid_middleware_1.default, comments_controllers_1.listCommentByIdController);
+commentsRoutes.patch("/:id", ensureTokenIsValid_middleware_1.default, (0, ensureDataIsValid_middleware_1.default)(comments_schemas_1.commentSchemaUpdate), ensureCommentExists_middleware_1.default, checkCommentOwnership_middleware_1.default, comments_controllers_1.updateCommentController);
+commentsRoutes.delete("/:id", ensureTokenIsValid_middleware_1.default, ensureCommentExists_middleware_1.default, checkCommentOwnership_middleware_1.default, comments_controllers_1.deleteCommentController);
+exports.default = commentsRoutes;
