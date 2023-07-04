@@ -31,6 +31,9 @@ const readAdvertsService = async (query: any): Promise<iResMultipleAdverts> => {
     query.price == ""
   ) {
     adverts = await advertRepository.find({
+      where: {
+        is_active: true,
+      },
       relations: {
         user: true,
         comments: true,
@@ -55,6 +58,7 @@ const readAdvertsService = async (query: any): Promise<iResMultipleAdverts> => {
         color: query.color !== "" ? query.color : null,
         year: query.year !== "" ? query.year : null,
         fuel: query.fuel !== "" ? query.fuel : null,
+        is_active: true,
       },
       order: {
         mileage: query.mileage !== "" ? query.mileage : undefined,
@@ -75,6 +79,9 @@ const readAdvertsService = async (query: any): Promise<iResMultipleAdverts> => {
     query.price == ""
   ) {
     advertsQuant = await advertRepository.find({
+      where: {
+        is_active: true,
+      },
       relations: {
         user: true,
         comments: true,
@@ -94,6 +101,7 @@ const readAdvertsService = async (query: any): Promise<iResMultipleAdverts> => {
         color: query.color !== "" ? query.color : null,
         year: query.year !== "" ? query.year : null,
         fuel: query.fuel !== "" ? query.fuel : null,
+        is_active: true,
       },
     });
   }
