@@ -38,7 +38,7 @@ class EmailService {
       theme: "default",
       product: {
         name: "Cardealership",
-        link: "http://localhost:5173/",
+        link: "https://dealer-vehicles.vercel.app/",
       },
     });
 
@@ -52,7 +52,7 @@ class EmailService {
           button: {
             color: "#4529E6",
             text: "Altere sua senha",
-            link: `http://localhost:5173/changePassword/${resetToken}`,
+            link: `https://dealer-vehicles.vercel.app/changePassword/${resetToken}`,
           },
         },
         outro:
